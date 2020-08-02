@@ -12,9 +12,7 @@ export class DynamicFormControlService {
         const group: any = {};
 
         formBase.forEach((input) => {
-            group[input.key] = input.required
-                ? new FormControl(input.value || '', Validators.required)
-                : new FormControl(input.value || '');
+            group[input.key] = input.required ? new FormControl(input.value || '', input.validators) : new FormControl(input.value || '');
         });
 
         return new FormGroup(group);

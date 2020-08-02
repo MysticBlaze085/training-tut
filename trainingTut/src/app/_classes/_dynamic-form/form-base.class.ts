@@ -6,6 +6,7 @@ export class FormBase<T> {
     order: number;
     controlType: string;
     type: string;
+    validators: any[];
     options: { key: string; value: string }[];
 
     constructor(
@@ -17,6 +18,7 @@ export class FormBase<T> {
             order?: number;
             controlType?: string;
             type?: string;
+            validators?: any[];
             options?: { key: string; value: string }[];
         } = {}
     ) {
@@ -28,5 +30,6 @@ export class FormBase<T> {
         this.controlType = options.controlType || '';
         this.type = options.type || '';
         this.options = options.options || [];
+        this.validators = options.validators || [];
     }
 }

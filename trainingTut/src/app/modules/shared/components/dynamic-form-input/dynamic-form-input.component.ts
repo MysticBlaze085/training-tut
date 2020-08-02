@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormBase } from 'src/app/_classes/_dynamic-form';
+import { FormBase, MyErrorStateMatcher } from 'src/app/_classes/_dynamic-form';
 
 @Component({
     selector: 'app-dynamic-form-input',
@@ -11,6 +11,9 @@ import { FormBase } from 'src/app/_classes/_dynamic-form';
 export class DynamicFormInputComponent {
     @Input() inputs: FormBase<string>;
     @Input() form: FormGroup;
+
+    matcher = new MyErrorStateMatcher();
+
     get isValid() {
         return this.form.controls[this.inputs.key].valid;
     }

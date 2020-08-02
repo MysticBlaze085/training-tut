@@ -1,13 +1,19 @@
-<div [formGroup]="form">
-    <label [attr.for]="inputs.key">{{ inputs.label }}</label>
-
+<ng-container [formGroup]="form" *ngIf="form" class="w-100">
     <div [ngSwitch]="inputs.controlType">
-        <input *ngSwitchCase="'textbox'" [formControlName]="inputs.key" [id]="inputs.key" [type]="inputs.type" />
-
-        <select [id]="inputs.key" *ngSwitchCase="'dropdown'" [formControlName]="inputs.key">
-            <option *ngFor="let opt of inputs.options" [value]="opt.key">{{ opt.value }}</option>
-        </select>
+        <ng-container *ngSwitchCase="'textbox'">
+            <mat-form-field class="w-100">
+                <input
+                    matInput
+                    [formControlName]="inputs.key"
+                    [id]="inputs.key"
+                    [type]="inputs.type"
+                    [errorStateMatcher]="matcher"
+                    [placeholder]="inputs.label"
+                />
+            </mat-form-field>
+            <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
+                Please enter a {{ inputs.label }}
+            </mat-error>
+        </ng-container>
     </div>
-
-    <div class="errorMessage" *ngIf="!isValid">{{ inputs.label }} is required</div>
-</div>
+</ng-container>
