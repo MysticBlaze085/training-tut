@@ -1,7 +1,7 @@
 <ng-container [formGroup]="form" *ngIf="form">
     <div [ngSwitch]="inputs.controlType">
         <ng-container *ngSwitchCase="'textbox'">
-            <mat-form-field class="w-100">
+            <mat-form-field class="w-100" appearance="fill" [ngClass]="classChanges">
                 <input
                     matInput
                     [formControlName]="inputs.key"
