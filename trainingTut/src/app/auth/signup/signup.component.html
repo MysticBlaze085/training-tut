@@ -1,3 +1,5 @@
 <div class="h-100 d-flex flex-column align-items-center justify-content-center">
-    <app-dynamic-form [inputs]="inputs$ | async"></app-dynamic-form>
+    <mat-card class="p-5 w-50">
+        <app-dynamic-form [inputs]="inputs$ | async" buttonText="Signup" [class]="'w-100'" class="w-100"></app-dynamic-form>
+    </mat-card>
 </div>

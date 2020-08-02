@@ -11,6 +11,8 @@ import { DynamicFormControlService } from 'src/app/_services';
 })
 export class DynamicFormComponent implements OnInit {
     @Input() inputs: FormBase<string>[] = [];
+    @Input() buttonText = 'Submit';
+    @Input() class: string;
     form: FormGroup;
     payLoad = '';
 
