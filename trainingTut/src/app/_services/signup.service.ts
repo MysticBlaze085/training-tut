@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { FormBase, TextboxInput } from '../_classes/_dynamic-form';
-import { Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
@@ -14,12 +14,20 @@ export class SignupService {
                 label: 'Email',
                 type: 'email',
                 required: true,
-                validators: [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')],
+                validators: [Validators.required, Validators.email],
                 order: 1,
             }),
             new TextboxInput({
                 key: 'password',
                 label: 'Password',
+                type: 'password',
+                required: true,
+                validators: [Validators.required, Validators.minLength(8)],
+                order: 1,
+            }),
+            new TextboxInput({
+                key: 'confirmPassword',
+                label: 'Confirm Password',
                 type: 'password',
                 required: true,
                 validators: [Validators.required],
