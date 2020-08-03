@@ -4,10 +4,10 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../modules/shared/shared.module';
 import { LoginComponent } from './login/login.component';
-import { DynamicFormComponent, DynamicFormInputComponent } from '../modules/shared';
+import { DynamicFormInputComponent } from '../modules/shared';
 
 @NgModule({
-    declarations: [SignupComponent, LoginComponent, DynamicFormInputComponent, DynamicFormComponent],
+    declarations: [SignupComponent, LoginComponent, DynamicFormInputComponent],
     imports: [CommonModule, AuthRoutingModule, SharedModule],
     exports: [SignupComponent, LoginComponent],
 })

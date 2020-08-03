@@ -1,19 +1,36 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
-import { SignupService } from 'src/app/_services';
+import { DynamicFormControlService, SignupService } from 'src/app/_services';
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent implements OnInit {
-    inputs$: Observable<FormBase<any>[]>;
+export class SignupComponent implements OnInit, OnDestroy {
+    inputs$: Subscription;
+    inputs: FormBase<string>[] = [];
+    buttonText = 'Submit';
+    class: string;
+    form: FormGroup;
+    payLoad = '';
 
-    constructor(public signupFormService: SignupService) {}
+    constructor(private signupFormService: SignupService, private dynFormCtrl: DynamicFormControlService) {}
 
-    ngOnInit(): void {
-        this.inputs$ = this.signupFormService.getSignupInputs();
+    ngOnInit() {
+        this.inputs$ = this.signupFormService.getSignupInputs().subscribe((inputs: FormBase<string>[]) => {
+            this.inputs = inputs;
+            this.form = this.dynFormCtrl.toFormGroup(inputs);
+        });
+    }
+
+    onSubmit() {
+        this.payLoad = JSON.stringify(this.form.getRawValue());
+    }
+
+    ngOnDestroy() {
+        this.inputs$.unsubscribe();
     }
 }
