@@ -5,15 +5,13 @@
                 <app-dynamic-form-input [inputs]="input" [form]="form" [ngClass]="class"></app-dynamic-form-input>
             </div>
 
-            <div [ngClass]="class">
+            <div [ngClass]="class" class="d-flex flex-row">
+                <button mat-raised-button color="accent" class="w-100 mr-1" [routerLink]="['/welcome/login/signup']">Signup</button>
                 <button mat-raised-button type="submit" [disabled]="!form.valid" class="w-100" color="primary">
                     {{ buttonText }}
                 </button>
             </div>
         </form>
-        <mat-card-actions class="text-center">
-            <button mat-raised-button color="accent" class="w-100" [routerLink]="['/welcome/login/signup']">Signup</button>
-        </mat-card-actions>
 
         <div *ngIf="payLoad"><strong>Saved the following values</strong><br />{{ payLoad }}</div>
     </mat-card>
