@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
+import { ComparePasswordPipe } from 'src/app/_pipes/compare-password.pipe';
 import { DynamicFormControlService, SignupService } from 'src/app/_services';
 @Component({
     selector: 'app-signup',
@@ -17,12 +18,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     form: FormGroup;
     payLoad = '';
 
+    comparePassword;
+
     constructor(private signupFormService: SignupService, private dynFormCtrl: DynamicFormControlService) {}
 
     ngOnInit() {
         this.inputs$ = this.signupFormService.getSignupInputs().subscribe((inputs: FormBase<string>[]) => {
             this.inputs = inputs;
-            this.form = this.dynFormCtrl.toFormGroup(inputs);
+            this.form = this.dynFormCtrl.toFormSignUpGroup(inputs);
         });
     }
 

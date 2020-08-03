@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { ComparePasswordPipe } from 'src/app/_pipes/compare-password.pipe';
 
 @Injectable({
     providedIn: 'root',
@@ -16,5 +17,24 @@ export class DynamicFormControlService {
         });
 
         return new FormGroup(group);
+    }
+
+    toFormSignUpGroup(formBase: FormBase<string>[]) {
+        const group: any = {};
+
+        formBase.forEach((input) => {
+            group[input.key] = input.required ? new FormControl(input.value || '', input.validators) : new FormControl(input.value || '');
+        });
+
+        const formGroup = new FormGroup(group, this.passwordsMatchValidator);
+
+        return formGroup;
+    }
+
+    private passwordsMatchValidator(form: FormGroup) {
+        if (form.get('password') && form.get('confirmPassword')) {
+            return form.get('password').value === form.get('confirmPassword').value ? null : { mismatch: true };
+        }
+        return null;
     }
 }

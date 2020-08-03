@@ -8,6 +8,7 @@ export class FormBase<T> {
     type: string;
     validators: any[];
     options: { key: string; value: string }[];
+    errorMessage: string;
 
     constructor(
         options: {
@@ -20,6 +21,7 @@ export class FormBase<T> {
             type?: string;
             validators?: any[];
             options?: { key: string; value: string }[];
+            errorMessage?: string;
         } = {}
     ) {
         this.value = options.value;
@@ -31,5 +33,6 @@ export class FormBase<T> {
         this.type = options.type || '';
         this.options = options.options || [];
         this.validators = options.validators || [];
+        this.errorMessage = options.errorMessage || '';
     }
 }

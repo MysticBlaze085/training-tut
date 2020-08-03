@@ -1,7 +1,7 @@
 <ng-container [formGroup]="form" *ngIf="form">
     <div [ngSwitch]="inputs.controlType">
         <ng-container *ngSwitchCase="'textbox'">
-            <mat-form-field class="w-100" appearance="fill" [ngClass]="classChanges">
+            <mat-form-field class="w-100 mb-2" appearance="fill" [ngClass]="classChanges">
                 <input
                     matInput
                     [formControlName]="inputs.key"
@@ -10,10 +10,10 @@
                     [errorStateMatcher]="matcher"
                     [placeholder]="inputs.label"
                 />
+                <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
+                    {{ inputs.errorMessage }}
+                </mat-error>
             </mat-form-field>
-            <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
-                Please enter a {{ inputs.label }}
-            </mat-error>
         </ng-container>
     </div>
 </ng-container>

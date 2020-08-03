@@ -14,7 +14,8 @@ export class SignupService {
                 label: 'Email',
                 type: 'email',
                 required: true,
-                validators: [Validators.required, Validators.email],
+                validators: [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
+                errorMessage: 'Please enter a valid Email address!',
                 order: 1,
             }),
             new TextboxInput({
@@ -23,6 +24,7 @@ export class SignupService {
                 type: 'password',
                 required: true,
                 validators: [Validators.required, Validators.minLength(8)],
+                errorMessage: 'Please enter a password 8 characters long!',
                 order: 1,
             }),
             new TextboxInput({
@@ -30,7 +32,8 @@ export class SignupService {
                 label: 'Confirm Password',
                 type: 'password',
                 required: true,
-                validators: [Validators.required],
+                validators: [Validators.required, Validators.minLength(8)],
+                errorMessage: 'Please confirm password!',
                 order: 1,
             }),
         ];

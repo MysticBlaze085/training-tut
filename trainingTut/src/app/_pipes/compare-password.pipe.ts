@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'comparePassword'
+    name: 'comparePassword',
 })
 export class ComparePasswordPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
-  }
-
+    transform(password: string, confirmPassword: string): any {
+        return password === confirmPassword ? null : { mismatch: true };
+    }
 }
