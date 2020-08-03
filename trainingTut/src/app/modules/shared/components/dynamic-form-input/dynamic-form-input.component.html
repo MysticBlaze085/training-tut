@@ -1,19 +1,34 @@
 <ng-container [formGroup]="form" *ngIf="form">
     <div [ngSwitch]="inputs.controlType">
         <ng-container *ngSwitchCase="'textbox'">
-            <mat-form-field class="w-100 mb-2" appearance="fill" [ngClass]="classChanges">
-                <input
-                    matInput
-                    [formControlName]="inputs.key"
-                    [id]="inputs.key"
-                    [type]="inputs.type"
-                    [errorStateMatcher]="matcher"
-                    [placeholder]="inputs.label"
-                />
+            <mat-form-field class="w-100 mb-2" appearance="fill" [ngClass]="inputs.class">
+                <input matInput [formControlName]="inputs.key" [id]="inputs.key" [type]="inputs.type" [placeholder]="inputs.label" />
                 <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
                     {{ inputs.errorMessage }}
                 </mat-error>
             </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'datepicker'">
+            <mat-form-field class="w-100 mb-2" appearance="fill" [ngClass]="inputs.class" [id]="inputs.key">
+                <input matInput [matDatepicker]="picker" [formControlName]="inputs.key" [type]="inputs.type" [placeholder]="inputs.label" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
+                    {{ inputs.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'checkbox'">
+            <div class="w-100 mb-2" [ngClass]="inputs.class">
+                <mat-checkbox matInput [formControlName]="inputs.key" [id]="inputs.key" [labelPosition]="inputs.labelPosition">{{
+                    inputs.label
+                }}</mat-checkbox>
+                <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
+                    {{ inputs.errorMessage }}
+                </mat-error>
+            </div>
         </ng-container>
     </div>
 </ng-container>

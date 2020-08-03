@@ -9,6 +9,8 @@ export class FormBase<T> {
     validators: any[];
     options: { key: string; value: string }[];
     errorMessage: string;
+    class: string;
+    labelPosition: string;
 
     constructor(
         options: {
@@ -22,6 +24,8 @@ export class FormBase<T> {
             validators?: any[];
             options?: { key: string; value: string }[];
             errorMessage?: string;
+            class?: string;
+            labelPosition?: string;
         } = {}
     ) {
         this.value = options.value;
@@ -34,5 +38,7 @@ export class FormBase<T> {
         this.options = options.options || [];
         this.validators = options.validators || [];
         this.errorMessage = options.errorMessage || '';
+        this.class = options.class || '';
+        this.labelPosition = options.labelPosition || '';
     }
 }

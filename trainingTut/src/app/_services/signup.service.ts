@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { FormBase, TextboxInput } from '../_classes/_dynamic-form';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { DatePickerInput, FormBase, TextboxInput } from '../_classes/_dynamic-form';
+import { Validators } from '@angular/forms';
+import { CheckboxInput } from '../_classes/_dynamic-form/checkbox.class';
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,15 @@ export class SignupService {
                 errorMessage: 'Please enter a valid Email address!',
                 order: 1,
             }),
+            new DatePickerInput({
+                key: 'dateOfBirth',
+                label: 'Date of Birth',
+                type: 'datepicker',
+                required: true,
+                validators: [Validators.required],
+                errorMessage: 'Please enter your date of birth!',
+                order: 2,
+            }),
             new TextboxInput({
                 key: 'password',
                 label: 'Password',
@@ -25,7 +35,7 @@ export class SignupService {
                 required: true,
                 validators: [Validators.required, Validators.minLength(8)],
                 errorMessage: 'Please enter a password 8 characters long!',
-                order: 1,
+                order: 3,
             }),
             new TextboxInput({
                 key: 'confirmPassword',
@@ -34,7 +44,18 @@ export class SignupService {
                 required: true,
                 validators: [Validators.required, Validators.minLength(8)],
                 errorMessage: 'Please confirm password!',
-                order: 1,
+                order: 4,
+            }),
+            new CheckboxInput({
+                key: 'agreeTerms',
+                label: 'Agree to Terms and Conditions',
+                type: 'password',
+                required: true,
+                validators: [Validators.required],
+                errorMessage: 'Must agree to terms and conditions!',
+                labelPosition: 'before',
+                class: 'text-center',
+                order: 5,
             }),
         ];
 

@@ -15,19 +15,7 @@ export class DynamicFormControlService {
             group[input.key] = input.required ? new FormControl(input.value || '', input.validators) : new FormControl(input.value || '');
         });
 
-        return new FormGroup(group);
-    }
-
-    toFormSignUpGroup(formBase: FormBase<string>[]) {
-        const group: any = {};
-
-        formBase.forEach((input) => {
-            group[input.key] = input.required ? new FormControl(input.value || '', input.validators) : new FormControl(input.value || '');
-        });
-
-        const formGroup = new FormGroup(group, this.passwordsMatchValidator);
-
-        return formGroup;
+        return new FormGroup(group, this.passwordsMatchValidator);
     }
 
     private passwordsMatchValidator(form: FormGroup) {

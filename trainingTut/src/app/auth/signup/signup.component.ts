@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.inputs$ = this.signupFormService.getSignupInputs().subscribe((inputs: FormBase<string>[]) => {
             this.inputs = inputs;
-            this.form = this.dynFormCtrl.toFormSignUpGroup(inputs);
+            this.form = this.dynFormCtrl.toFormGroup(inputs);
         });
     }
 
