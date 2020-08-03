@@ -1,8 +1,21 @@
-<mat-sidenav-container class="w-100 h-100">
+<mat-sidenav-container class="app-container">
     <mat-sidenav #sidenav role="navigation">
         <p>I am a sidenav!</p>
     </mat-sidenav>
     <mat-sidenav-content>
-        <router-outlet></router-outlet>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()" aria-label="Opens sidenav bar">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-button routerLink="/welcome">LOGO</button>
+            <div class="ml-auto">
+                <button mat-button routerLink="/welcome/login/signup">Signup</button>
+                <button mat-button routerLink="/welcome/login">Login</button>
+                <button mat-button routerLink="/welcome/training">Training</button>
+            </div>
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
     </mat-sidenav-content>
 </mat-sidenav-container>
