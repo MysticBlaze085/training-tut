@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
-import { ComparePasswordPipe } from 'src/app/_pipes/compare-password.pipe';
 import { DynamicFormControlService, SignupService } from 'src/app/_services';
 @Component({
     selector: 'app-signup',

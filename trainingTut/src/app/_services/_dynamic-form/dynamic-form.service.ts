@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { ComparePasswordPipe } from 'src/app/_pipes/compare-password.pipe';
 
 @Injectable({
     providedIn: 'root',
