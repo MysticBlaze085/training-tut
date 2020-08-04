@@ -22,7 +22,7 @@
 
         <ng-container *ngSwitchCase="'checkbox'">
             <div class="w-100 mb-2" [ngClass]="inputs.class">
-                <mat-checkbox matInput [formControlName]="inputs.key" [id]="inputs.key" [labelPosition]="inputs.labelPosition">{{
+                <mat-checkbox matInput [formControlName]="inputs.key" [id]="inputs.key" [labelPosition]="inputs.labelPosition" [required]="inputs.required">{{
                     inputs.label
                 }}</mat-checkbox>
                 <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">

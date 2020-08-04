@@ -49,7 +49,7 @@ export class SignupService {
             new CheckboxInput({
                 key: 'agreeTerms',
                 label: 'Agree to Terms and Conditions',
-                type: 'password',
+                type: 'checkbox',
                 required: true,
                 validators: [Validators.required],
                 errorMessage: 'Must agree to terms and conditions!',
