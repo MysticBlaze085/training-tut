@@ -3,6 +3,12 @@
   width: 100vw;
 
   main {
-    height: 93vh;
+    width: 100vw;
+    height: 80vw;
+    max-height: 90vh;
   }
+}
+
+mat-toolbar {
+  z-index: 1000;
 }
