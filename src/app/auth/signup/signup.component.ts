@@ -6,7 +6,7 @@ import { DynamicFormControlService, SignupService } from 'src/app/_services';
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
-    styles: [],
+    styleUrls: ['./signup.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnInit, OnDestroy {

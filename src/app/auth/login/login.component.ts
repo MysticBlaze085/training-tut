@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/_services/login.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styles: [],
+    styleUrls: ['./login.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
