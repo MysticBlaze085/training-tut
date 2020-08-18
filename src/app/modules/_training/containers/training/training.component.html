@@ -1,1 +1,15 @@
-<p>training works!</p>
+<div class="training-container" fxLayout="column" fxLayoutAlign="start center" *ngIf="links.length">
+    <nav mat-tab-nav-bar class="mt-5">
+        <a
+            mat-tab-link
+            *ngFor="let link of links"
+            [routerLink]="link.key"
+            (click)="activeLink = link.key"
+            [active]="activeLink == link.key"
+        >
+            {{ link.value }}
+        </a>
+    </nav>
+
+    <router-outlet></router-outlet>
+</div>
