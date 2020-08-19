@@ -36,14 +36,17 @@
             </div>
         </ng-container>
 
-        <ng-container *ngSwitchCase="'dropbox'">
+        <ng-container *ngSwitchCase="'dropdown'">
             <div class="w-100 mb-2" [ngClass]="inputs.class">
-                <select [id]="inputs.key" *ngSwitchCase="'dropdown'" [formControlName]="inputs.key">
-                    <option *ngFor="let opt of inputs.options" [value]="opt.key">{{ opt.value }}</option>
-                </select>
-                <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
-                    {{ inputs.errorMessage }}
-                </mat-error>
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ inputs.label }}</mat-label>
+                    <mat-select [id]="inputs.key" *ngSwitchCase="'dropdown'" [formControlName]="inputs.key">
+                        <mat-option *ngFor="let opt of inputs.options" [value]="opt.key">{{ opt.value }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get(inputs.key).invalid && (form.get(inputs.key).dirty || form.get(inputs.key).touched)">
+                        {{ inputs.errorMessage }}
+                    </mat-error>
+                </mat-form-field>
             </div>
         </ng-container>
     </div>
