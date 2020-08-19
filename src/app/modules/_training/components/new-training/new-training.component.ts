@@ -1,4 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { FormBase } from '../../../../_classes/_dynamic-form/form-base.class';
+import { FormGroup } from '@angular/forms';
+import { DynamicFormControlService, TrainingService } from 'src/app/_services';
 
 @Component({
     selector: 'app-new-training',
@@ -7,7 +11,17 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewTrainingComponent implements OnInit {
-    constructor() {}
+    inputs$: Subscription;
+    inputs: FormBase<string>[] = [];
+    form: FormGroup;
+    class: string;
 
-    ngOnInit(): void {}
+    constructor(private trainingService: TrainingService, private dynFormCtrl: DynamicFormControlService) {}
+
+    ngOnInit(): void {
+        this.inputs$ = this.trainingService.getTrainingList().subscribe((inputs: FormBase<string>[]) => {
+            this.inputs = inputs;
+            this.form = this.dynFormCtrl.toFormGroup(inputs);
+        });
+    }
 }

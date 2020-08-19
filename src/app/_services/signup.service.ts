@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { DatePickerInput, FormBase, TextboxInput } from '../_classes/_dynamic-form';
 import { Validators } from '@angular/forms';
 import { CheckboxInput } from '../_classes/_dynamic-form/checkbox.class';
@@ -8,7 +8,7 @@ import { CheckboxInput } from '../_classes/_dynamic-form/checkbox.class';
     providedIn: 'root',
 })
 export class SignupService {
-    getSignupInputs() {
+    getSignupInputs(): Observable<FormBase<string>[]> {
         const inputs: FormBase<string>[] = [
             new TextboxInput({
                 key: 'emailAddress',

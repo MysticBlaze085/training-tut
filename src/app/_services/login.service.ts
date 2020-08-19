@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { FormBase, TextboxInput } from '../_classes/_dynamic-form';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LoginService {
-    getSignupInputs() {
+    getSignupInputs(): Observable<FormBase<string>[]> {
         const inputs: FormBase<string>[] = [
             new TextboxInput({
                 key: 'emailAddress',

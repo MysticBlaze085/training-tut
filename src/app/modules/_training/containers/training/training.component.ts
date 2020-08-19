@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TrainingComponent implements OnInit {
     links: { key: string; value: string }[];
-    activeLink;
+    activeLink: string;
 
     constructor(public route: ActivatedRoute) {}
 
