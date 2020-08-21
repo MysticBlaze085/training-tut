@@ -37,8 +37,8 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'dropdown'">
-            <div class="w-100 mb-2" [ngClass]="inputs.class">
-                <mat-form-field appearance="fill">
+            <div class="w-100 mb-2">
+                <mat-form-field appearance="fill" [ngClass]="inputs.class">
                     <mat-label>{{ inputs.label }}</mat-label>
                     <mat-select [id]="inputs.key" *ngSwitchCase="'dropdown'" [formControlName]="inputs.key">
                         <mat-option *ngFor="let opt of inputs.options" [value]="opt.key">{{ opt.value }}</mat-option>

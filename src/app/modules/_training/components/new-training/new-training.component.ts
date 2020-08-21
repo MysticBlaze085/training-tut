@@ -14,7 +14,7 @@ export class NewTrainingComponent implements OnInit {
     inputs$: Subscription;
     inputs: FormBase<string>[] = [];
     form: FormGroup;
-    class: string;
+    class = 'w-100';
 
     constructor(private trainingService: TrainingService, private dynFormCtrl: DynamicFormControlService) {}
 

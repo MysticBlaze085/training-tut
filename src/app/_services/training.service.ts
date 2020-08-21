@@ -16,11 +16,13 @@ export class TrainingService {
                 required: true,
                 validators: [Validators.required],
                 options: [
-                    { key: 'one', value: 'One' },
-                    { key: 'two', value: 'Two' },
-                    { key: 'three', value: 'Three' },
+                    { key: 'crunches', value: 'Crunches' },
+                    { key: 'touch-toes', value: 'Touch Toes' },
+                    { key: 'burpees', value: 'Burpees' },
+                    { key: 'pain', value: 'Torchering Mechanism' },
                 ],
                 errorMessage: 'Please select training',
+                class: 'w-100',
                 order: 1,
             }),
         ];

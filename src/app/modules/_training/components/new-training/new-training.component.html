@@ -1,16 +1,16 @@
-<section class="new-training-container" fxLayout fxLayoutAlign="center">
-    <mat-card fxFlex="400px">
-        <mat-card-title>
+<section class="mt-4" fxLayout fxLayoutAlign="center">
+    <mat-card fxFlex.xs="100%" fxFlex="400px">
+        <mat-card-title fxLayoutAlign="center">
             Time to start a workout!
         </mat-card-title>
-        <mat-card-content>
+        <mat-card-content fxLayoutAlign="center">
             <form [formGroup]="form">
-                <div *ngFor="let input of inputs" [ngClass]="class">
-                    <app-dynamic-form-input [inputs]="input" [form]="form" [ngClass]="class"></app-dynamic-form-input>
+                <div *ngFor="let input of inputs">
+                    <app-dynamic-form-input [inputs]="input" [form]="form" [class]="input.class"></app-dynamic-form-input>
                 </div>
             </form>
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions fxLayoutAlign="center">
             <button type="submit" mat-button>Start</button>
         </mat-card-actions>
     </mat-card>
