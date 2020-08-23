@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate } from '@angular/router';
-import { CurrentTrainingGuard } from 'src/app/_guards';
+import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 
 @Component({
     selector: 'app-training',
@@ -8,28 +7,9 @@ import { CurrentTrainingGuard } from 'src/app/_guards';
     styleUrls: ['./training.component.scss'],
 })
 export class TrainingComponent implements OnInit {
-    links: { key: string; value: string }[];
-    activeLink: string;
+    onGoindTraining: boolean;
 
-    constructor(public route: ActivatedRoute, private isActiveRoute: CurrentTrainingGuard) {}
+    constructor() {}
 
-    ngOnInit() {
-        const routeSnapShot = this.route.snapshot;
-        this.isActiveRoute.canActivate(routeSnapShot).subscribe((res) => console.log('res', res));
-
-        const routeChildren = this.route.snapshot.routeConfig.children;
-        console.log('snap', this.route.snapshot);
-
-        this.links = this.mapRouteConfiguration(routeChildren);
-        this.activeLink = this.links[0].key;
-    }
-
-    private mapRouteConfiguration(routeChildren): { key: string; value: string }[] {
-        return routeChildren.map((route) => {
-            return {
-                key: route.path,
-                value: route.data.title,
-            };
-        });
-    }
+    ngOnInit() {}
 }

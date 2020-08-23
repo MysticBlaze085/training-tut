@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBase } from '../../../../_classes/_dynamic-form/form-base.class';
 import { FormGroup } from '@angular/forms';
@@ -8,9 +8,10 @@ import { DynamicFormControlService, TrainingService } from 'src/app/_services';
     selector: 'app-new-training',
     templateUrl: './new-training.component.html',
     styleUrls: ['./new-training.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewTrainingComponent implements OnInit {
+    @Output() trainingStart: EventEmitter<any> = new EventEmitter();
+
     inputs$: Subscription;
     inputs: FormBase<string>[] = [];
     form: FormGroup;
@@ -25,5 +26,7 @@ export class NewTrainingComponent implements OnInit {
         });
     }
 
-    onStartTraining() {}
+    onStartTraining() {
+        this.trainingStart.emit();
+    }
 }

@@ -1,16 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-current-training',
-  templateUrl: './current-training.component.html',
-  styleUrls: ['./current-training.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-current-training',
+    templateUrl: './current-training.component.html',
+    styleUrls: ['./current-training.component.scss'],
 })
 export class CurrentTrainingComponent implements OnInit {
+    progress = 0;
+    timer: number;
+    constructor() {}
 
-  constructor() { }
+    ngOnInit(): void {
+        this.timer = setInterval(() => {
+            this.progress = this.progress + 5;
+            if (this.progress >= 100) {
+                clearInterval(this.timer);
+            }
+        }, 1000);
+    }
 
-  ngOnInit(): void {
-  }
-
+    onStop() {
+        clearInterval(this.timer);
+    }
 }

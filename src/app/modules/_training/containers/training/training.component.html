@@ -1,7 +1,9 @@
-<nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let link of links" [routerLink]="link.key" (click)="activeLink = link.key" [active]="activeLink == link.key">
-        {{ link.value }}
-    </a>
-</nav>
-
-<router-outlet></router-outlet>
+<mat-tab-group *ngIf="!onGoindTraining">
+    <mat-tab label="New Exercise">
+        <app-new-training (trainingStart)="onGoindTraining = true"></app-new-training>
+    </mat-tab>
+    <mat-tab label="Past Exercises">
+        <app-past-training></app-past-training>
+    </mat-tab>
+</mat-tab-group>
+<app-current-training *ngIf="onGoindTraining"></app-current-training>
