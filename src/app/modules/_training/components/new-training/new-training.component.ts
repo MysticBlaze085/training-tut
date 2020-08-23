@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBase } from '../../../../_classes/_dynamic-form/form-base.class';
 import { FormGroup } from '@angular/forms';
@@ -24,4 +24,6 @@ export class NewTrainingComponent implements OnInit {
             this.form = this.dynFormCtrl.toFormGroup(inputs);
         });
     }
+
+    onStartTraining() {}
 }

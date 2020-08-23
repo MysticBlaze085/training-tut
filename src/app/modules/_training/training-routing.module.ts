@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CurrentTrainingGuard } from 'src/app/_guards';
 import { CurrentTrainingComponent, NewTrainingComponent, PastTrainingComponent } from './components';
 import { TrainingComponent } from './containers';
 
@@ -11,6 +12,7 @@ const routes: Routes = [
             {
                 path: 'current-training',
                 component: CurrentTrainingComponent,
+                canActivate: [CurrentTrainingGuard],
                 data: {
                     title: 'Current Training',
                 },
