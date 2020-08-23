@@ -31,6 +31,8 @@ export class NewTrainingComponent implements OnChanges {
     }
 
     onStartTraining() {
-        this.trainingStart.emit();
+        console.log('form', this.form.value);
+        const { newTraining } = this.form.value;
+        this.trainingStart.emit({ id: newTraining });
     }
 }

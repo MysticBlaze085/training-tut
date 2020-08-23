@@ -10,8 +10,15 @@ export class TrainingService {
         { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
     ];
 
+    private runningExercise: Exercise;
+
     getAvailableExercises() {
         // calling slice creates new array without effecting original and can be modified
         return this.availableExercises.slice();
+    }
+
+    startExercise(selectedId: string): void {
+        const selectedExercise = this.availableExercises.find((ex) => ex.id === selectedId);
+        this.runningExercise = selectedExercise;
     }
 }

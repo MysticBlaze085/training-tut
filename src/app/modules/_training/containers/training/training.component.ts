@@ -16,4 +16,9 @@ export class TrainingComponent implements OnInit {
     ngOnInit() {
         this.availableExercises = this.trainingService.getAvailableExercises();
     }
+
+    onTrainingStart({ id }) {
+        this.trainingService.startExercise(id);
+        this.onGoindTraining = true;
+    }
 }
