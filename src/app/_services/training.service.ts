@@ -13,6 +13,7 @@ export class TrainingService {
     ];
 
     private runningExercise: Exercise;
+    private exercises: Exercise[] = [];
 
     getAvailableExercises() {
         // calling slice creates new array without effecting original and can be modified
@@ -22,5 +23,28 @@ export class TrainingService {
     startExercise(selectedId: string): void {
         this.runningExercise = this.availableExercises.find((ex) => ex.id === selectedId);
         this.exerciseChanged.next({ ...this.runningExercise });
+    }
+
+    completeExercise() {
+        this.exercises.push({ ...this.runningExercise, date: new Date(), state: 'completed' });
+        this.runningExercise = null;
+        this.exerciseChanged.next(null);
+    }
+
+    cancelExercise(progress: number) {
+        const getCalDur = this.runningExercise.duration * (progress / 100);
+        this.exercises.push({
+            ...this.runningExercise,
+            duration: getCalDur,
+            calories: getCalDur,
+            date: new Date(),
+            state: 'cancelled',
+        });
+        this.runningExercise = null;
+        this.exerciseChanged.next(null);
+    }
+
+    getRunningExercise() {
+        return { ...this.runningExercise };
     }
 }
