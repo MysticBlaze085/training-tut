@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Router } from '@angular/router';
+import { Exercise } from 'src/app/_interfaces';
+import { TrainingService } from 'src/app/_services';
 
 @Component({
     selector: 'app-training',
@@ -8,8 +9,11 @@ import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 })
 export class TrainingComponent implements OnInit {
     onGoindTraining: boolean;
+    availableExercises: Exercise[];
 
-    constructor() {}
+    constructor(private trainingService: TrainingService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.availableExercises = this.trainingService.availableExercises;
+    }
 }
