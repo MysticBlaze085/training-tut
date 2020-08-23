@@ -8,10 +8,11 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponents } from './modules/shared';
+import { AuthService } from './_services';
 @NgModule({
     declarations: [AppComponent, ...NavigationComponents],
     imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgbModule],
-    providers: [],
+    providers: [AuthService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
