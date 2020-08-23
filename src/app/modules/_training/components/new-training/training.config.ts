@@ -12,11 +12,11 @@ export const getTrainingInputs = (exercises: Exercise[]) => {
     const trainingList: FormBase<string>[] = [
         new DropdownInput({
             key: 'newTraining',
-            label: 'Select Training',
+            label: 'Choose Exercise',
             required: true,
             validators: [Validators.required],
             options: [...mapExercises],
-            errorMessage: 'Please select training',
+            errorMessage: 'Please select an exercise',
             class: 'w-100',
             order: 1,
         }),
