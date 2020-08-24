@@ -1,5 +1,5 @@
-<div class="login-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="inputs.length">
-    <mat-card class="login-content p-5" color="accent">
+<div class="mt-4" fxLayout="row" fxLayoutAlign="center center" *ngIf="inputs.length">
+    <mat-card fxFlex.xs="100%" fxFlex="500px" color="accent">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <div *ngFor="let input of inputs" [ngClass]="class">
                 <app-dynamic-form-input [inputs]="input" [form]="form" [ngClass]="class"></app-dynamic-form-input>

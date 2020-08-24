@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StopTrainingModalComponent } from './stop-training-modal.component';
 import { TrainingService } from 'src/app/_services';
@@ -38,12 +38,7 @@ export class CurrentTrainingComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            console.log(result);
-            if (result) {
-                this.trainingService.cancelExercise(this.progress);
-            } else {
-                this.startOrResumeTimer();
-            }
+            return result ? this.trainingService.cancelExercise(this.progress) : this.startOrResumeTimer();
         });
     }
 }
