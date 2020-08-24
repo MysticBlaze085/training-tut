@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Exercise } from 'src/app/_interfaces';
 import { TrainingService } from 'src/app/_services';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map, tap } from 'rxjs/operators';
+import { Exercise } from 'src/app/_interfaces';
 
 @Component({
     selector: 'app-training',
@@ -10,13 +12,28 @@ import { Subscription } from 'rxjs';
 })
 export class TrainingComponent implements OnInit, OnDestroy {
     onGoindTraining: boolean;
-    availableExercises: Exercise[];
+    availableExercises$: Observable<Exercise[]>;
     exerciseSubscription: Subscription;
 
-    constructor(private trainingService: TrainingService) {}
+    constructor(private trainingService: TrainingService, private db: AngularFirestore) {}
 
     ngOnInit() {
-        this.availableExercises = this.trainingService.getAvailableExercises();
+        this.availableExercises$ = this.db
+            .collection('availableExercises')
+            .snapshotChanges()
+            .pipe(
+                map((docArray) => {
+                    return docArray.map((doc) => {
+                        return {
+                            id: doc.payload.doc.id,
+                            name: doc.payload.doc.data()['name'],
+                            duration: doc.payload.doc.data()['duration'],
+                            calories: doc.payload.doc.data()['calories'],
+                        };
+                    });
+                })
+            );
+
         this.exerciseSubscription = this.trainingService.exerciseChanged.subscribe((exercise) => {
             this.onGoindTraining = exercise ? true : false;
         });

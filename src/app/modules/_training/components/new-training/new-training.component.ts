@@ -4,14 +4,14 @@ import { FormBase } from '../../../../_classes/_dynamic-form/form-base.class';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormControlService } from 'src/app/_services';
 import { getTrainingInputs } from './training.config';
-import { Exercise } from '../../../../_interfaces/exercise.interface';
+import { Exercise } from 'src/app/_interfaces';
 @Component({
     selector: 'app-new-training',
     templateUrl: './new-training.component.html',
     styleUrls: ['./new-training.component.scss'],
 })
 export class NewTrainingComponent implements OnChanges {
-    @Input() exercises: Exercise[] = [];
+    @Input() exercises: Exercise[];
     @Output() trainingStart: EventEmitter<any> = new EventEmitter();
 
     inputs$: Subscription;
