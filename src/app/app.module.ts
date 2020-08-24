@@ -9,9 +9,25 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponents } from './modules/shared';
 import { AuthService } from './_services';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 @NgModule({
     declarations: [AppComponent, ...NavigationComponents],
-    imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgbModule],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        NgbModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        AngularFireStorageModule,
+    ],
     providers: [AuthService],
     bootstrap: [AppComponent],
 })
