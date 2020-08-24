@@ -1,16 +1,16 @@
-<section *ngIf="exercises.length" class="mt-4" fxLayout fxLayoutAlign="center">
-    <mat-card fxLayout="column" fxFlex.xs="100%" fxFlex="500px">
+<section *ngIf="exercises.length" fxLayout fxLayoutAlign="center">
+    <mat-card class="mt-3 mb-3" fxLayout="column" fxFlex.xs="100%" fxFlex="500px">
         <mat-card-title fxLayoutAlign="center">
             Time to start a workout!
         </mat-card-title>
-        <mat-card-content fxFlex="100%" fxLayoutAlign="center">
+        <mat-card-content fxLayout="column" fxFlex="100%" fxLayoutAlign="center">
             <form [formGroup]="form" class="w-100">
                 <div *ngFor="let input of inputs">
                     <app-dynamic-form-input [inputs]="input" [form]="form" [class]="input.class"></app-dynamic-form-input>
                 </div>
             </form>
         </mat-card-content>
-        <mat-card-actions fxLayoutAlign="center">
+        <mat-card-actions>
             <button class="w-100" mat-raised-button color="primary" [disabled]="form.invalid" (click)="onStartTraining()">Start</button>
         </mat-card-actions>
     </mat-card>

@@ -1,4 +1,4 @@
-<mat-tab-group *ngIf="!onGoindTraining">
+<mat-tab-group *ngIf="!onGoindTraining" [dynamicHeight]="true">
     <mat-tab label="New Exercise">
         <app-new-training [exercises]="availableExercises" (trainingStart)="onTrainingStart($event)"></app-new-training>
     </mat-tab>
