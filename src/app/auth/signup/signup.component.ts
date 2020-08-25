@@ -28,7 +28,6 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.inputs = inputs;
             this.form = this.dynFormCtrl.toFormGroup(inputs);
         });
-        console.log('form', this.form.value);
 
         this.form.patchValue({
             emailAddress: 'test@example.com',
