@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.inputs = inputs;
             this.form = this.dynFormCtrl.toFormGroup(inputs);
         });
+        this.form.patchValue({ emailAddress: 'test@example.com', password: 'password' });
     }
 
     onSubmit() {
