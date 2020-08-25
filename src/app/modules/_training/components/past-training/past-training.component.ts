@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,22 +10,37 @@ import { TrainingService } from 'src/app/_services';
     templateUrl: './past-training.component.html',
     styleUrls: ['./past-training.component.scss'],
 })
-export class PastTrainingComponent implements OnInit, AfterViewInit {
+export class PastTrainingComponent implements OnChanges {
+    @Input() finishedWorkOutData: Exercise[];
     displayedColumns: string[] = ['date', 'name', 'calories', 'duration', 'state'];
     dataSource = new MatTableDataSource<Exercise>();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    private paginator: MatPaginator;
+    private sort: MatSort;
 
-    constructor(private trainingService: TrainingService) {}
-
-    ngOnInit(): void {
-        this.dataSource.data = this.trainingService.getCompletedOrCancelledExercisers();
+    @ViewChild(MatSort) set matSort(ms: MatSort) {
+        this.sort = ms;
+        this.setDataSourceAttributes();
     }
 
-    ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
+    @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+        this.paginator = mp;
+        this.setDataSourceAttributes();
+    }
+
+    resultsLength = 0;
+
+    constructor() {}
+
+    ngOnChanges({ finishedWorkOutData }: SimpleChanges): void {
+        if (finishedWorkOutData && this.finishedWorkOutData) {
+            this.dataSource.data = this.finishedWorkOutData;
+        }
+    }
+
+    setDataSourceAttributes() {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     doFilter(filterValue: string) {

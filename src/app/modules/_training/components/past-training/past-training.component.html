@@ -1,4 +1,4 @@
-<mat-card class="mt-3 mb-3">
+<mat-card class="mt-3 mb-3" *ngIf="finishedWorkOutData">
     <mat-form-field class="w-100" appearance="fill">
         <mat-label>Filter</mat-label>
         <input matInput type="text" (keyup)="doFilter($event.target.value)" />
@@ -9,7 +9,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Date
             </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.date | date }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{ element.date.toDate() | date }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="name">

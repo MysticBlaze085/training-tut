@@ -11,13 +11,14 @@ import { Exercise } from 'src/app/_interfaces';
 export class TrainingComponent implements OnInit, OnDestroy {
     onGoindTraining: boolean;
     availableExercises$: Observable<Exercise[]>;
+    finsihedExercises$: Observable<Exercise[]>;
     exerciseSubscription: Subscription;
 
     constructor(private trainingService: TrainingService) {}
 
     ngOnInit() {
         this.availableExercises$ = this.trainingService.availableSubject$;
-
+        this.finsihedExercises$ = this.trainingService.finishedExercises$;
         this.exerciseSubscription = this.trainingService.exerciseChanged.subscribe((exercise) => {
             this.onGoindTraining = exercise ? true : false;
         });
