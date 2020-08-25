@@ -1,23 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Exercise } from '../_interfaces/exercise.interface';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TrainingService {
     exerciseChanged = new Subject<Exercise>();
-    private availableExercises: Exercise[] = [
-        { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-        { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-        { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-        { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
-    ];
 
+    private availableExercises: Exercise[] = [];
     private runningExercise: Exercise;
     private exercises: Exercise[] = [];
 
-    getAvailableExercises() {
-        // calling slice creates new array without effecting original and can be modified
-        return this.availableExercises.slice();
+    private availableSubject: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>([]);
+    availableSubject$: Observable<Exercise[]> = this.availableSubject.asObservable();
+
+    constructor(private db: AngularFirestore) {}
+
+    fetchAvailableExercises() {
+        this.db
+            .collection('availableExercises')
+            .snapshotChanges()
+            .pipe(map((docArray) => this.mapExercisePayload(docArray)))
+            .subscribe((mapArray) => {
+                this.availableExercises = mapArray;
+                this.availableSubject.next([...this.availableExercises]);
+            });
+    }
+
+    private mapExercisePayload(docArray): Exercise[] {
+        return docArray.map((doc) => {
+            return {
+                id: doc.payload.doc.id,
+                ...doc.payload.doc.data(),
+            };
+        });
     }
 
     startExercise(selectedId: string): void {

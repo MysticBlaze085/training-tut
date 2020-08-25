@@ -40,7 +40,9 @@
               "@firebase/remote-config",
               "@firebase/component",
               "@firebase/auth",
-              "@firebase/util"
+              "@firebase/util",
+              "rxjs",
+              "rxjs-compat/add/operator/map"
             ],
             "outputPath": "dist",
             "index": "src/index.html",
