@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AuthData, User } from '../_interfaces';
+import { AuthData } from '../_interfaces';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -14,16 +14,12 @@ export class AuthService {
     constructor(private router: Router, private afAuth: AngularFireAuth) {}
 
     registerUser(authData: AuthData) {
-        console.log(authData);
-
         this.afAuth
             .createUserWithEmailAndPassword(authData.emailAddress, authData.password)
-            .then((result) => {
-                console.log('auth res', result);
+            .then(() => {
                 this.authStateRouter(true, '/training');
             })
             .catch((error) => {
-                console.log('auth error', error);
                 alert(error.message);
             });
     }
@@ -31,12 +27,10 @@ export class AuthService {
     login(authData: AuthData) {
         this.afAuth
             .signInWithEmailAndPassword(authData.emailAddress, authData.password)
-            .then((result) => {
-                console.log('auth res', result);
+            .then(() => {
                 this.authStateRouter(true, '/training');
             })
             .catch((error) => {
-                console.log('auth error', error);
                 alert(error.message);
             });
     }
