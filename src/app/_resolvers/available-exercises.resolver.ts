@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/operator/map';
+import { first } from 'rxjs/operators';
 import { TrainingService } from '../_services/training.service';
 
 @Injectable({ providedIn: 'root' })
-export class AvailableExercisesResolver implements Resolve<void> {
+export class AvailableExercisesResolver implements Resolve<Subscription> {
     constructor(private trainingServices: TrainingService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.trainingServices.fetchAvailableExercises();
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Subscription {
+        return this.trainingServices
+            .fetchAvailableExercises()
+            .pipe(first())
+            .subscribe(
+                () => {},
+                () => {}
+            );
     }
 }

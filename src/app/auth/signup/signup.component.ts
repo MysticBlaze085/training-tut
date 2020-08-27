@@ -28,14 +28,6 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.inputs = inputs;
             this.form = this.dynFormCtrl.toFormGroup(inputs);
         });
-
-        this.form.patchValue({
-            emailAddress: 'test@example.com',
-            dateOfBirth: '1973-06-17T05:00:00.000Z',
-            password: 'password',
-            confirmPassword: 'password',
-            agreeTerms: true,
-        });
     }
 
     onSubmit() {

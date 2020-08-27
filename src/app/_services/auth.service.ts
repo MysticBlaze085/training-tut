@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { AuthData } from '../_interfaces';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { TrainingService } from './training.service';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
     authChange = new Subject<boolean>();
     private isAuthenticated: boolean;
 
-    constructor(private router: Router, private afAuth: AngularFireAuth) {}
+    constructor(private router: Router, private afAuth: AngularFireAuth, private trainingService: TrainingService) {}
 
     registerUser(authData: AuthData) {
         this.afAuth
@@ -36,6 +37,7 @@ export class AuthService {
     }
 
     logout() {
+        this.afAuth.signOut();
         this.authStateRouter(false, '/login');
         this.isAuthenticated = false;
     }

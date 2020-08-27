@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Exercise } from '../_interfaces/exercise.interface';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class TrainingService {
@@ -17,17 +17,22 @@ export class TrainingService {
     private finishedExercisesSubject: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>([]);
     finishedExercises$: Observable<Exercise[]> = this.finishedExercisesSubject.asObservable();
 
+    fbSubs: Subscription[] = [];
+
     constructor(private db: AngularFirestore) {}
 
-    fetchAvailableExercises() {
-        this.db
+    fetchAvailableExercises(): Observable<Exercise[]> {
+        return this.db
             .collection('availableExercises')
             .snapshotChanges()
-            .pipe(map((docArray) => this.mapExercisePayload(docArray)))
-            .subscribe((mapArray) => {
-                this.availableExercises = mapArray;
-                this.availableSubject.next([...this.availableExercises]);
-            });
+            .pipe(
+                map((docArray) => {
+                    const mapArray = this.mapExercisePayload(docArray);
+                    this.availableExercises = mapArray;
+                    this.availableSubject.next([...this.availableExercises]);
+                    return mapArray;
+                })
+            );
     }
 
     private mapExercisePayload(docArray): Exercise[] {
@@ -67,13 +72,11 @@ export class TrainingService {
         return { ...this.runningExercise };
     }
 
-    fetchCompletedOrCancelledExercisers() {
-        this.db
+    fetchCompletedOrCancelledExercises(): Observable<any> {
+        return this.db
             .collection('finishedExercises')
             .valueChanges()
-            .subscribe((exercises: Exercise[]) => {
-                this.finishedExercisesSubject.next([...exercises]);
-            });
+            .pipe(tap((exercises: Exercise[]) => this.finishedExercisesSubject.next([...exercises])));
     }
 
     private addDataToDatabase(exercise: Exercise) {
