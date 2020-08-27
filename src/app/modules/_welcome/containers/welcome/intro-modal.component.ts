@@ -11,6 +11,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
             <button mat-raised-button color="primary" [mat-dialog-close]="'login/signup'">Signup</button>
             <button mat-raised-button color="accent" [mat-dialog-close]="'/login'">Login</button>
         </mat-dialog-actions> `,
+    styles: [
+        `
+            h1 {
+                font-size: 4.5vw;
+            }
+        `,
+    ],
 })
 export class IntroModalComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public passedData: any) {}
