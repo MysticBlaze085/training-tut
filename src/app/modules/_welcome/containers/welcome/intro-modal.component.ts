@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-intro-modal',
-    template: `<h1 mat-dialog-title>{{ passedData.title }}</h1>
+    template: `<h1 mat-dialog-title fxLayoutAlign="center">{{ passedData.title }}</h1>
         <mat-dialog-content fxLayoutAlign="center center">
             <p>{{ passedData.content }}</p>
         </mat-dialog-content>
