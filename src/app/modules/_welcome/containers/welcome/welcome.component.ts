@@ -30,7 +30,7 @@ export class WelcomeComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            this.router.navigate([`${result}`]);
+            result ? this.router.navigate([`${result}`]) : this.router.navigate(['/login']);
         });
     }
 }
