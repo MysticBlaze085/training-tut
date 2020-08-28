@@ -455,6 +455,9 @@ firebase/firestore
 
 firebase/storage
 
+ngx-spinner
+MIT
+
 regenerator-runtime
 MIT
 MIT License
