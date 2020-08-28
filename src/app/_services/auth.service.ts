@@ -33,7 +33,7 @@ export class AuthService {
             .then(() => {})
             .catch((error) => {
                 this.process.off();
-                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error');
+                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error', 3000);
             });
     }
 
@@ -44,7 +44,7 @@ export class AuthService {
             .then(() => {})
             .catch((error) => {
                 this.process.off();
-                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error');
+                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error', 3000);
             });
     }
 
