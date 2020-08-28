@@ -2,9 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormBase } from 'src/app/_classes/_dynamic-form';
-import { DynamicFormControlService } from 'src/app/_services';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService, DynamicFormControlService } from 'src/app/_services';
 import { getSignupInputs } from './signup.config';
+
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
@@ -32,11 +32,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         const { emailAddress, password } = this.form.value;
-        console.log(emailAddress);
-
         this.authService.registerUser({ emailAddress, password });
-
-        this.payLoad = JSON.stringify(this.form.getRawValue());
     }
 
     ngOnDestroy() {

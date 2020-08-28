@@ -8,12 +8,13 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponents } from './modules/shared';
-import { AuthService, TrainingService } from './_services';
+import { AuthService, MessageHandlerService, ProcessingService, TrainingService } from './_services';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
     declarations: [AppComponent, ...NavigationComponents],
     imports: [
@@ -27,8 +28,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
+        NgxSpinnerModule,
     ],
-    providers: [AuthService, TrainingService],
+    providers: [AuthService, TrainingService, MessageHandlerService, ProcessingService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

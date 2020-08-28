@@ -3,19 +3,20 @@ import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/r
 import { Subscription } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { first } from 'rxjs/operators';
-import { TrainingService } from '../_services/training.service';
+import { ProcessingService, TrainingService } from '../_services';
 
 @Injectable({ providedIn: 'root' })
 export class FinishedExercisesResolver implements Resolve<Subscription> {
-    constructor(private trainingServices: TrainingService) {}
+    constructor(private trainingServices: TrainingService, private process: ProcessingService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Subscription {
+        this.process.on();
         return this.trainingServices
             .fetchCompletedOrCancelledExercises()
             .pipe(first())
             .subscribe(
-                () => {},
-                () => {}
+                () => this.process.off(),
+                () => this.process.off()
             );
     }
 }

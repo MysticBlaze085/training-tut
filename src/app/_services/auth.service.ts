@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 import { AuthData } from '../_interfaces';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { TrainingService } from './training.service';
+import { MessageHandlerService } from './message-handler.service';
+import { ProcessingService } from './processing.service';
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +13,12 @@ export class AuthService {
     authChange = new Subject<boolean>();
     private isAuthenticated: boolean;
 
-    constructor(private router: Router, private afAuth: AngularFireAuth) {}
+    constructor(
+        private router: Router,
+        private afAuth: AngularFireAuth,
+        private messageHandglerService: MessageHandlerService,
+        private process: ProcessingService
+    ) {}
 
     initAuthListener() {
         this.afAuth.authState.subscribe((user) => {
@@ -21,20 +27,24 @@ export class AuthService {
     }
 
     registerUser(authData: AuthData) {
+        this.process.on();
         this.afAuth
             .createUserWithEmailAndPassword(authData.emailAddress, authData.password)
             .then(() => {})
             .catch((error) => {
-                alert(error.message);
+                this.process.off();
+                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error');
             });
     }
 
     login(authData: AuthData) {
+        this.process.on();
         this.afAuth
             .signInWithEmailAndPassword(authData.emailAddress, authData.password)
             .then(() => {})
             .catch((error) => {
-                alert(error.message);
+                this.process.off();
+                this.messageHandglerService.openMessageHandler('error-handler', error.message, 'Error');
             });
     }
 

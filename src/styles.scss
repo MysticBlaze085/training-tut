@@ -11,3 +11,9 @@ body {
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.error-handler {
+    .mat-button {
+        color: #c40505;
+    }
+}
