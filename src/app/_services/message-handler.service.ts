@@ -18,6 +18,7 @@ export class MessageHandlerService {
         const verticalPosition = yAxis ? yAxis : 'bottom';
         const panelClass = [messageTypeClass];
         this.snackBar.open(message, actionLabel, {
+            duration: 6000,
             horizontalPosition,
             verticalPosition,
             panelClass,
