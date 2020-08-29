@@ -30,7 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         AngularFireStorageModule,
         NgxSpinnerModule,
     ],
-    providers: [AuthService, TrainingService, MessageHandlerService, ProcessingService],
+    providers: [AuthService, MessageHandlerService, ProcessingService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
