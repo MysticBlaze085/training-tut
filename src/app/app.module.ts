@@ -10,7 +10,6 @@ import { MaterialsModule, NavigationComponents } from './modules/shared';
 import { AuthService, MessageHandlerService, ProcessingService, TrainingService } from './_services';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -25,7 +24,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         FlexLayoutModule,
         NgbModule,
         AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
         AngularFireStorageModule,
         NgxSpinnerModule,
     ],
