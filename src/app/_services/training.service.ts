@@ -3,6 +3,8 @@ import { Exercise } from '../_interfaces/exercise.interface';
 import { BehaviorSubject, Subject, Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, tap } from 'rxjs/operators';
+import { ProcessingService } from './processing.service';
+import { MessageHandlerService } from './message-handler.service';
 
 @Injectable()
 export class TrainingService {
@@ -17,12 +19,12 @@ export class TrainingService {
     private finishedExercisesSubject: BehaviorSubject<Exercise[]> = new BehaviorSubject<Exercise[]>([]);
     finishedExercises$: Observable<Exercise[]> = this.finishedExercisesSubject.asObservable();
 
-    fbSubs: Subscription[] = [];
+    private fbSubs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore) {}
+    constructor(private db: AngularFirestore, private process: ProcessingService, private messageHandler: MessageHandlerService) {}
 
-    fetchAvailableExercises(): Observable<Exercise[]> {
-        return this.db
+    fetchAvailableExercises(): Subscription {
+        const exercises = this.db
             .collection('availableExercises')
             .snapshotChanges()
             .pipe(
@@ -32,7 +34,16 @@ export class TrainingService {
                     this.availableSubject.next([...this.availableExercises]);
                     return mapArray;
                 })
+            )
+            .subscribe(
+                () => this.process.off(),
+                (error) => {
+                    this.process.off();
+                    this.messageHandler.openMessageHandler('error-handler', error.message, 'Error', 6000);
+                }
             );
+        this.fbSubs.push(exercises);
+        return exercises;
     }
 
     private mapExercisePayload(docArray): Exercise[] {
@@ -71,11 +82,26 @@ export class TrainingService {
         return { ...this.runningExercise };
     }
 
-    fetchCompletedOrCancelledExercises(): Observable<any> {
-        return this.db
+    fetchCompletedOrCancelledExercises(): Subscription {
+        const pastExercises = this.db
             .collection('finishedExercises')
             .valueChanges()
-            .pipe(tap((exercises: Exercise[]) => this.finishedExercisesSubject.next([...exercises])));
+            .pipe(tap((exercises: Exercise[]) => this.finishedExercisesSubject.next([...exercises])))
+            .subscribe(
+                () => this.process.off(),
+                (error) => {
+                    this.process.off();
+                    this.messageHandler.openMessageHandler('error-handler', error.message, 'Error', 6000);
+                }
+            );
+        this.fbSubs.push(pastExercises);
+        return pastExercises;
+    }
+
+    unsubFetch() {
+        this.fbSubs.forEach((sub) => {
+            sub.unsubscribe();
+        });
     }
 
     private addDataToDatabase(exercise: Exercise) {

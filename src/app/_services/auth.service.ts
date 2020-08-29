@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MessageHandlerService } from './message-handler.service';
 import { ProcessingService } from './processing.service';
+import { TrainingService } from './training.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +18,8 @@ export class AuthService {
         private router: Router,
         private afAuth: AngularFireAuth,
         private messageHandglerService: MessageHandlerService,
-        private process: ProcessingService
+        private process: ProcessingService,
+        private trainingService: TrainingService
     ) {}
 
     initAuthListener() {
@@ -49,6 +51,7 @@ export class AuthService {
     }
 
     logout() {
+        this.trainingService.unsubFetch();
         this.afAuth.signOut();
     }
 
