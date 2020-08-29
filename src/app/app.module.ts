@@ -4,17 +4,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavigationComponents } from './modules/shared';
+import { MaterialsModule, NavigationComponents } from './modules/shared';
 import { AuthService, MessageHandlerService, ProcessingService, TrainingService } from './_services';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
     declarations: [AppComponent, ...NavigationComponents],
     imports: [
@@ -22,15 +21,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        SharedModule,
+        MaterialsModule,
+        FlexLayoutModule,
         NgbModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
-        AngularFireAuthModule,
         AngularFireStorageModule,
         NgxSpinnerModule,
     ],
-    providers: [AuthService, MessageHandlerService, ProcessingService],
+    providers: [AuthService, TrainingService, MessageHandlerService, ProcessingService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

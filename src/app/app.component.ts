@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { AuthService, ProcessingService } from './_services';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from './_services';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +10,7 @@ import { AuthService, ProcessingService } from './_services';
 export class AppComponent implements OnInit {
     @ViewChild('sidenav', { static: true }) sidenav;
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.authService.initAuthListener();

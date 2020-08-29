@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     {
         path: 'welcome',
         loadChildren: () => import('./modules/_welcome/welcome.module').then((m) => m.WelcomeModule),
@@ -17,6 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/_training/training.module').then((m) => m.TrainingModule),
         canActivate: [AuthGuard],
     },
+    { path: '', pathMatch: 'full', redirectTo: '/welcome' },
 ];
 
 @NgModule({

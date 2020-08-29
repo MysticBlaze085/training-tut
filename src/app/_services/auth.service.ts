@@ -24,7 +24,7 @@ export class AuthService {
 
     initAuthListener() {
         this.afAuth.authState.subscribe((user) => {
-            user ? this.authStateRouter(true, '/training') : this.authStateRouter(false, '/welcome');
+            user ? this.authStateRouter(true, '/training') : this.authStateRouter(false, '');
         });
     }
 

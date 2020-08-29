@@ -99,9 +99,13 @@ export class TrainingService {
     }
 
     unsubFetch() {
-        this.fbSubs.forEach((sub) => {
-            sub.unsubscribe();
-        });
+        console.log('fetch', this.fbSubs.length);
+
+        if (this.fbSubs.length) {
+            this.fbSubs.forEach((sub) => {
+                sub.unsubscribe();
+            });
+        }
     }
 
     private addDataToDatabase(exercise: Exercise) {
