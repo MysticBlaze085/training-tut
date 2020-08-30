@@ -51,7 +51,6 @@ export class AuthService {
     }
 
     logout() {
-        this.trainingService.unsubFetch();
         this.afAuth.signOut();
     }
 

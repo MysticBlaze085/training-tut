@@ -98,12 +98,8 @@ export class TrainingService {
         return pastExercises;
     }
 
-    unsubFetch() {
-        console.log('hit', this.fbSubs);
-
+    cancelSubscriptions() {
         this.fbSubs.forEach((sub) => {
-            console.log(sub);
-
             sub.unsubscribe();
         });
     }

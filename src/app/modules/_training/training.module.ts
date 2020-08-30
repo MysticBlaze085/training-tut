@@ -7,12 +7,14 @@ import { TRAINING_CONTAINERS } from './containers';
 import { SharedModule } from '../shared/shared.module';
 import { TrainingService } from '../../_services/training.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AvailableExercisesResolver, FinishedExercisesResolver } from 'src/app/_resolvers';
+import { AuthService } from 'src/app/_services';
 
 @NgModule({
     declarations: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
     imports: [CommonModule, TrainingRoutingModule, AngularFirestoreModule, SharedModule],
     exports: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
-    providers: [TrainingService],
+    providers: [AuthService, TrainingService, AvailableExercisesResolver, FinishedExercisesResolver],
     entryComponents: [...ENTRY_TRAINING_COMPONENTS],
 })
 export class TrainingModule {}
