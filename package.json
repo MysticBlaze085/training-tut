@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "~10.0.7",
     "@angular/router": "~10.0.7",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "@ngrx/store": "^10.0.0",
     "bootstrap": "^5.0.0-alpha1",
     "firebase": "^7.19.0",
     "moment": "^2.27.0",
