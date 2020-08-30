@@ -10,4 +10,4 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const getUiState = createFeatureSelector<fromUi.State>('ui');
-export const getIsAuthenticated = createSelector(getUiState, fromUi.getIsAuthenticated);
+export const getIsLoading = createSelector(getUiState, fromUi.getIsLoading);

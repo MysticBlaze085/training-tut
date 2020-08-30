@@ -18,7 +18,7 @@ export class SidenavListComponent implements OnInit {
     constructor(private authService: AuthService, private store: Store<fromRoot.State>) {}
 
     ngOnInit(): void {
-        this.isAuth$ = this.store.select(fromRoot.getIsAuthenticated);
+        this.isAuth$ = this.store.select(fromRoot.getIsLoading);
     }
 
     onCloseSidenav() {

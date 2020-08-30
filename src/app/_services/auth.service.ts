@@ -13,7 +13,6 @@ import * as UI from '../modules/shared/ui.actions';
     providedIn: 'root',
 })
 export class AuthService {
-    authChange = new Subject<boolean>();
     private isAuthenticated: boolean;
 
     constructor(
@@ -61,9 +60,9 @@ export class AuthService {
     }
 
     private authStateRouter(state: boolean, route: string) {
-        const authChangeState = state ? new UI.StartLoading() : new UI.StopLoading();
+        const loadingState = state ? new UI.StartLoading() : new UI.StopLoading();
         this.isAuthenticated = state;
-        this.store.dispatch(authChangeState);
+        this.store.dispatch(loadingState);
         this.router.navigate([`${route}`]);
     }
 }
