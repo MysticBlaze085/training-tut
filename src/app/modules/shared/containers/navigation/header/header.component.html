@@ -4,13 +4,11 @@
     </button>
     <button mat-button routerLink="" routerLinkActive="mat-accent">Udemy Angular - tut</button>
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxLayoutGap="2px" fxHide.xs>
-        <button *ngIf="!(isLoading$ | async)" mat-button routerLink="/login/signup"
+        <button *ngIf="!(isAuth$ | async)" mat-button routerLink="/login/signup"
             routerLinkActive="mat-accent">Signup</button>
-        <button *ngIf="!(isLoading$ | async)" mat-button routerLink="/login"
-            routerLinkActive="mat-accent">Login</button>
-        <button *ngIf="(isLoading$ | async)" mat-button routerLink="/training"
+        <button *ngIf="!(isAuth$ | async)" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</button>
+        <button *ngIf="(isAuth$ | async)" mat-button routerLink="/training"
             routerLinkActive="mat-accent">Training</button>
-        <button *ngIf="(isLoading$ | async)" mat-button routerLinkActive="mat-accent"
-            (click)="onLogout()">Logout</button>
+        <button *ngIf="(isAuth$ | async)" mat-button routerLinkActive="mat-accent" (click)="onLogout()">Logout</button>
     </div>
 </mat-toolbar>
