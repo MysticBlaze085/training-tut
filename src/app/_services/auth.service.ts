@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { AuthData } from '../_interfaces';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -8,13 +8,12 @@ import { ProcessingService } from './processing.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
 import * as UI from '../modules/shared/ui.actions';
+import * as Auth from '../auth/auth.actions';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private isAuthenticated: boolean;
-
     constructor(
         private router: Router,
         private afAuth: AngularFireAuth,
@@ -55,14 +54,18 @@ export class AuthService {
         this.afAuth.signOut();
     }
 
-    isAuth() {
-        return this.isAuthenticated;
+    private authStateRouter(state: boolean, route: string) {
+        this.isLoadingState(state);
+        this.authenticatedState(state);
+        this.router.navigate([`${route}`]);
     }
 
-    private authStateRouter(state: boolean, route: string) {
+    private authenticatedState(state: boolean) {
+        const authState = state ? new Auth.SetAuthenticated() : new Auth.SetUnauthenticated();
+        return this.store.dispatch(authState);
+    }
+    private isLoadingState(state: boolean) {
         const loadingState = state ? new UI.StartLoading() : new UI.StopLoading();
-        this.isAuthenticated = state;
-        this.store.dispatch(loadingState);
-        this.router.navigate([`${route}`]);
+        return this.store.dispatch(loadingState);
     }
 }
