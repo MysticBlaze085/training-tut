@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards';
+import { AvailableExercisesResolver, FinishedExercisesResolver } from './_resolvers';
 
 const routes: Routes = [
     {
-        path: 'welcome',
+        path: '',
         loadChildren: () => import('./modules/_welcome/welcome.module').then((m) => m.WelcomeModule),
     },
     {
@@ -16,7 +17,6 @@ const routes: Routes = [
         loadChildren: () => import('./modules/_training/training.module').then((m) => m.TrainingModule),
         canActivate: [AuthGuard],
     },
-    { path: '', pathMatch: 'full', redirectTo: '/welcome' },
 ];
 
 @NgModule({

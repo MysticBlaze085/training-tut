@@ -2,7 +2,7 @@
     <button fxHide.gt-xs mat-icon-button (click)="onToggleSidenav()" aria-label="Opens sidenav bar">
         <mat-icon>menu</mat-icon>
     </button>
-    <button mat-button routerLink="/" routerLinkActive="mat-accent">Udemy Angular - tut</button>
+    <button mat-button routerLink="" routerLinkActive="mat-accent">Udemy Angular - tut</button>
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxLayoutGap="2px" fxHide.xs>
         <button *ngIf="!isAuth" mat-button routerLink="/login/signup" routerLinkActive="mat-accent">Signup</button>
         <button *ngIf="!isAuth" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</button>
