@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MessageHandlerService } from './message-handler.service';
 import { ProcessingService } from './processing.service';
-import { TrainingService } from './training.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../app.reducer';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +20,7 @@ export class AuthService {
         private afAuth: AngularFireAuth,
         private messageHandglerService: MessageHandlerService,
         private process: ProcessingService,
-        private trainingService: TrainingService
+        private store: Store<{ ui: fromApp.State }>
     ) {}
 
     initAuthListener() {
@@ -59,8 +60,9 @@ export class AuthService {
     }
 
     private authStateRouter(state: boolean, route: string) {
+        const authChangeState = state ? 'START_LOADING' : 'STOP_LOADING';
         this.isAuthenticated = state;
-        this.authChange.next(state);
+        this.store.dispatch({ type: `${authChangeState}` });
         this.router.navigate([`${route}`]);
     }
 }

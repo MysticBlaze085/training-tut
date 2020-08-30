@@ -5,6 +5,8 @@ import { FormBase } from 'src/app/_classes/_dynamic-form';
 import { DynamicFormControlService } from 'src/app/_services';
 import { AuthService } from '../../_services/auth.service';
 import { getLoginInputs } from './login.config';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../app.reducer';
 
 @Component({
     selector: 'app-login',
@@ -22,9 +24,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     comparePassword;
 
-    constructor(private authService: AuthService, private dynFormCtrl: DynamicFormControlService) {}
+    constructor(
+        private authService: AuthService,
+        private dynFormCtrl: DynamicFormControlService,
+        private store: Store<{ ui: fromApp.State }>
+    ) {}
 
     ngOnInit() {
+        this.store.subscribe((data) => console.log(data));
         this.inputs$ = getLoginInputs().subscribe((inputs: FormBase<string>[]) => {
             this.inputs = inputs;
             this.form = this.dynFormCtrl.toFormGroup(inputs);
