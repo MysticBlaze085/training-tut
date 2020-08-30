@@ -11,13 +11,13 @@ import * as fromRoot from '../../../../../app.reducer';
 })
 export class HeaderComponent implements OnInit {
     @Output() sidenavToggle: EventEmitter<void> = new EventEmitter<void>();
-    isAuth$: Observable<boolean>;
+    isLoading$: Observable<boolean>;
     authSubscription: Subscription;
 
     constructor(private authService: AuthService, private store: Store<fromRoot.State>) {}
 
     ngOnInit(): void {
-        this.isAuth$ = this.store.select(fromRoot.getIsLoading);
+        this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     }
 
     onToggleSidenav() {
