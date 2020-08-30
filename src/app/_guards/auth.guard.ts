@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanLoad, Route } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { pipe } from 'rxjs';
+import { take } from 'rxjs/operators';
 import * as fromRoot from '../app.reducer';
 
 @Injectable({
@@ -11,13 +13,19 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let isAuthenticate: boolean;
-        this.store.select(fromRoot.getIsAuthenticated).subscribe((auth) => (isAuthenticate = auth));
+        this.store
+            .select(fromRoot.getIsAuthenticated)
+            .pipe(take(1))
+            .subscribe((auth) => (isAuthenticate = auth));
         return isAuthenticate ? true : this.router.navigate(['']);
     }
 
     canLoad(route: Route) {
         let isAuthenticate: boolean;
-        this.store.select(fromRoot.getIsAuthenticated).subscribe((auth) => (isAuthenticate = auth));
+        this.store
+            .select(fromRoot.getIsAuthenticated)
+            .pipe(take(1))
+            .subscribe((auth) => (isAuthenticate = auth));
 
         return isAuthenticate ? true : this.router.navigate(['']);
     }
