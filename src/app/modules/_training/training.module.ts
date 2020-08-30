@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { TrainingRoutingModule } from './training-routing.module';
 import { ENTRY_TRAINING_COMPONENTS, TRAINING_COMPONENTS } from './components';
@@ -12,7 +11,7 @@ import { AuthService } from 'src/app/_services';
 
 @NgModule({
     declarations: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
-    imports: [CommonModule, TrainingRoutingModule, AngularFirestoreModule, SharedModule],
+    imports: [SharedModule, TrainingRoutingModule, AngularFirestoreModule],
     exports: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
     providers: [AuthService, TrainingService, AvailableExercisesResolver, FinishedExercisesResolver],
     entryComponents: [...ENTRY_TRAINING_COMPONENTS],

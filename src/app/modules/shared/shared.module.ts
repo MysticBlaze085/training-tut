@@ -7,6 +7,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
     declarations: [DynamicFormInputComponent],
     imports: [CommonModule, MaterialsModule, ReactiveFormsModule, FormsModule, FlexLayoutModule],
-    exports: [MaterialsModule, ReactiveFormsModule, FormsModule, FlexLayoutModule, DynamicFormInputComponent],
+    exports: [CommonModule, MaterialsModule, ReactiveFormsModule, FormsModule, FlexLayoutModule, DynamicFormInputComponent],
 })
 export class SharedModule {}
