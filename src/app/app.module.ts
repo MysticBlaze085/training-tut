@@ -14,7 +14,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from './app.reducer';
+import { reducers } from './app.reducer';
 @NgModule({
     declarations: [AppComponent, ...NavigationComponents],
     imports: [
@@ -28,7 +28,7 @@ import { appReducer } from './app.reducer';
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireStorageModule,
         NgxSpinnerModule,
-        StoreModule.forRoot({ ui: appReducer }),
+        StoreModule.forRoot(reducers),
     ],
     providers: [AuthService, TrainingService, MessageHandlerService, ProcessingService],
     bootstrap: [AppComponent],

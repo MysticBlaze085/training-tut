@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.store.subscribe((data) => console.log(data));
         this.inputs$ = getLoginInputs().subscribe((inputs: FormBase<string>[]) => {
             this.inputs = inputs;
             this.form = this.dynFormCtrl.toFormGroup(inputs);

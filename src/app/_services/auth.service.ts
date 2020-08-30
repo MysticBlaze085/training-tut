@@ -6,7 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MessageHandlerService } from './message-handler.service';
 import { ProcessingService } from './processing.service';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../app.reducer';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../modules/shared/ui.actions';
 
 @Injectable({
     providedIn: 'root',
@@ -20,7 +21,7 @@ export class AuthService {
         private afAuth: AngularFireAuth,
         private messageHandglerService: MessageHandlerService,
         private process: ProcessingService,
-        private store: Store<{ ui: fromApp.State }>
+        private store: Store<fromRoot.State>
     ) {}
 
     initAuthListener() {
@@ -60,9 +61,9 @@ export class AuthService {
     }
 
     private authStateRouter(state: boolean, route: string) {
-        const authChangeState = state ? 'START_LOADING' : 'STOP_LOADING';
+        const authChangeState = state ? new UI.StartLoading() : new UI.StopLoading();
         this.isAuthenticated = state;
-        this.store.dispatch({ type: `${authChangeState}` });
+        this.store.dispatch(authChangeState);
         this.router.navigate([`${route}`]);
     }
 }

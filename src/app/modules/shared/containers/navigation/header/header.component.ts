@@ -2,8 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../../../../_services/auth.service';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../../../../app.reducer';
-import { map } from 'rxjs/operators';
+import * as fromRoot from '../../../../../app.reducer';
 
 @Component({
     selector: 'app-header',
@@ -15,10 +14,10 @@ export class HeaderComponent implements OnInit {
     isAuth$: Observable<boolean>;
     authSubscription: Subscription;
 
-    constructor(private authService: AuthService, private store: Store<{ ui: fromApp.State }>) {}
+    constructor(private authService: AuthService, private store: Store<fromRoot.State>) {}
 
     ngOnInit(): void {
-        this.isAuth$ = this.store.pipe(map((data) => data.ui.isAuthenticated));
+        this.isAuth$ = this.store.select(fromRoot.getIsAuthenticated);
     }
 
     onToggleSidenav() {
