@@ -9,23 +9,19 @@ import { Exercise } from 'src/app/_interfaces';
     styleUrls: ['./training.component.scss'],
 })
 export class TrainingComponent implements OnInit, OnDestroy {
-    onGoindTraining: boolean;
+    onGoindTraining$: Observable<boolean>;
     availableExercises$: Observable<Exercise[]>;
     finishedExercises$: Observable<Exercise[]>;
-    exerciseSubscription: Subscription;
 
     constructor(private trainingService: TrainingService) {}
 
     ngOnInit() {
+        this.onGoindTraining$ = this.trainingService.exerciseChanged;
         this.availableExercises$ = this.trainingService.availableSubject$;
         this.finishedExercises$ = this.trainingService.finishedExercises$;
-        this.exerciseSubscription = this.trainingService.exerciseChanged.subscribe((exercise) => {
-            this.onGoindTraining = exercise ? true : false;
-        });
     }
 
     ngOnDestroy() {
-        this.exerciseSubscription.unsubscribe();
         this.trainingService.cancelSubscriptions();
     }
 

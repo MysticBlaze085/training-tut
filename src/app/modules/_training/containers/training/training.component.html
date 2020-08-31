@@ -1,9 +1,10 @@
-<mat-tab-group *ngIf="!onGoindTraining" [dynamicHeight]="true">
+<mat-tab-group *ngIf="!(onGoindTraining$ | async)" [dynamicHeight]="true">
     <mat-tab label="New Exercise">
-        <app-new-training [exercises]="availableExercises$ | async" (trainingStart)="onTrainingStart($event)"></app-new-training>
+        <app-new-training [exercises]="availableExercises$ | async" (trainingStart)="onTrainingStart($event)">
+        </app-new-training>
     </mat-tab>
     <mat-tab label="Past Exercises">
         <app-past-training [finishedWorkOutData]="finishedExercises$ | async"></app-past-training>
     </mat-tab>
 </mat-tab-group>
-<app-current-training *ngIf="onGoindTraining"></app-current-training>
+<app-current-training *ngIf="(onGoindTraining$ | async)"></app-current-training>

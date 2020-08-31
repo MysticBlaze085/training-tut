@@ -9,9 +9,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AvailableExercisesResolver, FinishedExercisesResolver } from 'src/app/_resolvers';
 import { AuthService } from 'src/app/_services';
 
+import { StoreModule } from '@ngrx/store';
+import { trainingReducer } from './training.reducer';
+
 @NgModule({
     declarations: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
-    imports: [SharedModule, TrainingRoutingModule, AngularFirestoreModule],
+    imports: [SharedModule, TrainingRoutingModule, AngularFirestoreModule, StoreModule.forFeature('training', trainingReducer)],
     exports: [...TRAINING_COMPONENTS, ...TRAINING_CONTAINERS],
     providers: [AuthService, TrainingService, AvailableExercisesResolver, FinishedExercisesResolver],
     entryComponents: [...ENTRY_TRAINING_COMPONENTS],
