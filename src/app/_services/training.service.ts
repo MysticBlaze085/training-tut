@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Exercise } from '../_interfaces/exercise.interface';
-import { BehaviorSubject, Subject, Observable, Subscription, from } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map, take, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
+import { map, take } from 'rxjs/operators';
 import { ProcessingService } from './processing.service';
 import { MessageHandlerService } from './message-handler.service';
 import { Store } from '@ngrx/store';
@@ -11,11 +11,11 @@ import * as fromTraining from '../modules/_training/training.reducer';
 
 @Injectable()
 export class TrainingService {
-    exerciseChanged = this.store.select(fromTraining.getIsTraining);
+    exerciseChanged$: Observable<boolean> = this.store.select(fromTraining.getIsTraining);
     availableSubject$: Observable<Exercise[]> = this.store.select(fromTraining.getAvailableExercises);
     finishedExercises$: Observable<Exercise[]> = this.store.select(fromTraining.getFinishedExercises);
 
-    private fbSubs: Subscription[] = [];
+    private firebaseSubs: Subscription[] = [];
 
     constructor(
         private db: AngularFirestore,
@@ -29,7 +29,7 @@ export class TrainingService {
             .collection('availableExercises')
             .snapshotChanges()
             .pipe(
-                map((docArray) => {
+                map((docArray: DocumentData) => {
                     const mapArray = this.mapExercisePayload(docArray);
                     return mapArray;
                 })
@@ -44,11 +44,11 @@ export class TrainingService {
                     this.messageHandler.openMessageHandler('error-handler', error.message, 'Error', 6000);
                 }
             );
-        this.fbSubs.push(availableExercises);
+        this.firebaseSubs.push(availableExercises);
         return availableExercises;
     }
 
-    private mapExercisePayload(docArray): Exercise[] {
+    private mapExercisePayload(docArray: DocumentData): Exercise[] {
         return docArray.map((doc) => {
             return {
                 id: doc.payload.doc.id,
@@ -61,8 +61,8 @@ export class TrainingService {
         this.store.dispatch(new Training.StartActiveTraining(selectedId));
     }
 
-    completeExercise() {
-        this.store
+    completeExercise(): Subscription {
+        return this.store
             .select(fromTraining.getActiveTraining)
             .pipe(take(1))
             .subscribe((ex) => {
@@ -71,8 +71,8 @@ export class TrainingService {
             });
     }
 
-    cancelExercise(progress: number) {
-        this.store
+    cancelExercise(progress: number): Subscription {
+        return this.store
             .select(fromTraining.getActiveTraining)
             .pipe(take(1))
             .subscribe((ex) => {
@@ -101,12 +101,12 @@ export class TrainingService {
                     this.messageHandler.openMessageHandler('error-handler', error.message, 'Error', 6000);
                 }
             );
-        this.fbSubs.push(pastExercises);
+        this.firebaseSubs.push(pastExercises);
         return pastExercises;
     }
 
     cancelSubscriptions() {
-        this.fbSubs.forEach((sub) => {
+        this.firebaseSubs.forEach((sub) => {
             sub.unsubscribe();
         });
     }

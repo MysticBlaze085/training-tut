@@ -8,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class DynamicFormControlService {
     constructor() {}
 
-    toFormGroup(formBase: FormBase<string>[]) {
+    toFormGroup(formBase: FormBase<string>[]): FormGroup {
         const group: any = {};
 
         formBase.forEach((input) => {
@@ -18,12 +18,10 @@ export class DynamicFormControlService {
         return new FormGroup(group, this.passwordsMatchValidator);
     }
 
-    private passwordsMatchValidator(form: FormGroup) {
+    private passwordsMatchValidator(form: FormGroup): FormControl | null | {} {
         if (form.get('password') && form.get('confirmPassword')) {
             return form.get('password').value === form.get('confirmPassword').value ? null : { mismatch: true };
         }
         return null;
     }
-
-    // create method for valid birthday cannot be passed todays date and cannot be younger than 18
 }

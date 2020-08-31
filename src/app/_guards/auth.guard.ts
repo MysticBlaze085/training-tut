@@ -10,7 +10,7 @@ import * as fromRoot from '../app.reducer';
 export class AuthGuard implements CanActivate, CanLoad {
     constructor(private router: Router, private store: Store<fromRoot.State>) {}
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | any {
         let isAuthenticate: boolean;
         this.store
             .select(fromRoot.getIsAuthenticated)
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         return isAuthenticate ? true : this.router.navigate(['']);
     }
 
-    canLoad(route: Route) {
+    canLoad(route: Route): boolean | any {
         let isAuthenticate: boolean;
         this.store
             .select(fromRoot.getIsAuthenticated)

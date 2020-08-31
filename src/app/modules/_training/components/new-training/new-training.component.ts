@@ -8,7 +8,6 @@ import { Exercise } from 'src/app/_interfaces';
 @Component({
     selector: 'app-new-training',
     templateUrl: './new-training.component.html',
-    styleUrls: ['./new-training.component.scss'],
 })
 export class NewTrainingComponent implements OnChanges {
     @Input() exercises: Exercise[];

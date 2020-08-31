@@ -8,7 +8,6 @@ import { TrainingService } from 'src/app/_services';
 @Component({
     selector: 'app-past-training',
     templateUrl: './past-training.component.html',
-    styleUrls: ['./past-training.component.scss'],
 })
 export class PastTrainingComponent implements OnChanges {
     @Input() finishedWorkOutData: Exercise[];
