@@ -12,7 +12,7 @@ import { TrainingService } from 'src/app/_services';
 export class PastTrainingComponent implements OnChanges {
     @Input() finishedWorkOutData: Exercise[];
     displayedColumns: string[] = ['date', 'name', 'calories', 'duration', 'state'];
-    dataSource = new MatTableDataSource<Exercise>();
+    dataSource: MatTableDataSource<Exercise> = new MatTableDataSource<Exercise>();
 
     private paginator: MatPaginator;
     private sort: MatSort;
